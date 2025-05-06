@@ -1,0 +1,8 @@
+kafka-acls --authorizer-properties zookeeper.connect=zookeeper:2181 --add --allow-principal User:consumer --operation Read --operation Describe --group my-consumer-group
+
+kafka-topics --bootstrap-server localhost:9091 --topic topic-1 --create --partitions 3 --replication-factor 2
+
+kafka-acls --authorizer-properties zookeeper.connect=zookeeper:2181 --add --allow-principal User:producer --operation Describe --operation Write --topic topic-1
+
+kafka-acls --authorizer-properties zookeeper.connect=zookeeper:2181 --add --allow-principal User:consumer --operation Describe --operation Read --topic topic-1
+

@@ -1,0 +1,43 @@
+[
+    {
+      "product_id": "12345",
+      "name": "Умные часы XYZ",
+      "description": "Умные часы с функцией мониторинга здоровья, GPS и уведомлениями.",
+      "price": {
+        "amount": 4999.99,
+        "currency": "RUB"
+      },
+      "category": "Электроника",
+      "brand": "XYZ",
+      "stock": {
+        "available": 150,
+        "reserved": 20
+      },
+      "sku": "XYZ-12345",
+      "tags": [
+        "умные часы",
+        "гаджеты",
+        "технологии"
+      ],
+      "images": [
+        {
+          "url": "https://example.com/images/product1.jpg",
+          "alt": "Умные часы XYZ - вид спереди"
+        },
+        {
+          "url": "https://example.com/images/product1_side.jpg",
+          "alt": "Умные часы XYZ - вид сбоку"
+        }
+      ],
+      "specifications": {
+        "weight": "50g",
+        "dimensions": "42mm x 36mm x 10mm",
+        "battery_life": "24 hours",
+        "water_resistance": "IP68"
+      },
+      "created_at": "2023-10-01T12:00:00Z",
+      "updated_at": "2023-10-10T15:30:00Z",
+      "index": "products",
+      "store_id": "store_001"
+    }
+]
