@@ -1,3 +1,5 @@
+kafka-topics --bootstrap-server localhost:9092 --list
+
 kafka-acls --authorizer-properties zookeeper.connect=zookeeper:2181 --add --allow-principal User:consumer --operation Read --operation Describe --group my-consumer-group
 
 kafka-topics --bootstrap-server localhost:9091 --topic topic-1 --create --partitions 3 --replication-factor 2
@@ -8,47 +10,47 @@ kafka-acls --authorizer-properties zookeeper.connect=zookeeper:2181 --add --allo
 
 
 
-
 openssl req -new \
     -newkey rsa:2048 \
-    -keyout kafka-4-creds/kafka-4.key \
-    -out kafka-4-creds/kafka-4.csr \
-    -config kafka-4-creds/kafka-4.cnf \
+    -keyout kafka-6-creds/kafka-6.key \
+    -out kafka-6-creds/kafka-6.csr \
+    -config kafka-6-creds/kafka-6.cnf \
     -nodes
-
 
 openssl x509 -req \
     -days 3650 \
-    -in kafka-4-creds/kafka-4.csr \
+    -in kafka-6-creds/kafka-6.csr \
     -CA ca.crt \
     -CAkey ca.key \
     -CAcreateserial \
-    -out kafka-4-creds/kafka-4.crt \
-    -extfile kafka-4-creds/kafka-4.cnf \
+    -out kafka-6-creds/kafka-6.crt \
+    -extfile kafka-6-creds/kafka-6.cnf \
     -extensions v3_req
 
 openssl pkcs12 -export \
-    -in kafka-4-creds/kafka-4.crt \
-    -inkey kafka-4-creds/kafka-4.key \
+    -in kafka-6-creds/kafka-6.crt \
+    -inkey kafka-6-creds/kafka-6.key \
     -chain \
     -CAfile ca.pem \
-    -name kafka-4 \
-    -out kafka-4-creds/kafka-4.p12 \
-    -password pass:your-password4
+    -name kafka-6 \
+    -out kafka-6-creds/kafka-6.p12 \
+    -password pass:your-password6
 
 keytool -importkeystore \
     -deststorepass your-password \
-    -destkeystore kafka-4-creds/kafka.kafka-4.keystore.pkcs12 \
-    -srckeystore kafka-4-creds/kafka-4.p12 \
+    -destkeystore kafka-6-creds/kafka.kafka-6.keystore.pkcs12 \
+    -srckeystore kafka-6-creds/kafka-6.p12 \
     -deststoretype PKCS12  \
     -srcstoretype PKCS12 \
     -noprompt \
-    -srcstorepass your-password4
+    -srcstorepass your-password6
 
 
 keytool -import \
     -file ca.crt \
     -alias ca \
-    -keystore kafka-4-creds/kafka.kafka-4.truststore.jks \
-    -storepass your-password4 \
+    -keystore kafka-6-creds/kafka.kafka-6.truststore.jks \
+    -storepass your-password6 \
      -noprompt
+
+
