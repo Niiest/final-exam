@@ -6,3 +6,49 @@ kafka-acls --authorizer-properties zookeeper.connect=zookeeper:2181 --add --allo
 
 kafka-acls --authorizer-properties zookeeper.connect=zookeeper:2181 --add --allow-principal User:consumer --operation Describe --operation Read --topic topic-1
 
+
+
+
+openssl req -new \
+    -newkey rsa:2048 \
+    -keyout kafka-4-creds/kafka-4.key \
+    -out kafka-4-creds/kafka-4.csr \
+    -config kafka-4-creds/kafka-4.cnf \
+    -nodes
+
+
+openssl x509 -req \
+    -days 3650 \
+    -in kafka-4-creds/kafka-4.csr \
+    -CA ca.crt \
+    -CAkey ca.key \
+    -CAcreateserial \
+    -out kafka-4-creds/kafka-4.crt \
+    -extfile kafka-4-creds/kafka-4.cnf \
+    -extensions v3_req
+
+openssl pkcs12 -export \
+    -in kafka-4-creds/kafka-4.crt \
+    -inkey kafka-4-creds/kafka-4.key \
+    -chain \
+    -CAfile ca.pem \
+    -name kafka-4 \
+    -out kafka-4-creds/kafka-4.p12 \
+    -password pass:your-password4
+
+keytool -importkeystore \
+    -deststorepass your-password \
+    -destkeystore kafka-4-creds/kafka.kafka-4.keystore.pkcs12 \
+    -srckeystore kafka-4-creds/kafka-4.p12 \
+    -deststoretype PKCS12  \
+    -srcstoretype PKCS12 \
+    -noprompt \
+    -srcstorepass your-password4
+
+
+keytool -import \
+    -file ca.crt \
+    -alias ca \
+    -keystore kafka-4-creds/kafka.kafka-4.truststore.jks \
+    -storepass your-password4 \
+     -noprompt
