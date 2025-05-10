@@ -12,45 +12,50 @@ kafka-acls --authorizer-properties zookeeper.connect=zookeeper:2181 --add --allo
 
 openssl req -new \
     -newkey rsa:2048 \
-    -keyout kafka-6-creds/kafka-6.key \
-    -out kafka-6-creds/kafka-6.csr \
-    -config kafka-6-creds/kafka-6.cnf \
+    -keyout kafka-5-creds/kafka-5.key \
+    -out kafka-5-creds/kafka-5.csr \
+    -config kafka-5-creds/kafka-5.cnf \
     -nodes
 
 openssl x509 -req \
     -days 3650 \
-    -in kafka-6-creds/kafka-6.csr \
+    -in kafka-5-creds/kafka-5.csr \
     -CA ca.crt \
     -CAkey ca.key \
     -CAcreateserial \
-    -out kafka-6-creds/kafka-6.crt \
-    -extfile kafka-6-creds/kafka-6.cnf \
+    -out kafka-5-creds/kafka-5.crt \
+    -extfile kafka-5-creds/kafka-5.cnf \
     -extensions v3_req
 
 openssl pkcs12 -export \
-    -in kafka-6-creds/kafka-6.crt \
-    -inkey kafka-6-creds/kafka-6.key \
+    -in kafka-5-creds/kafka-5.crt \
+    -inkey kafka-5-creds/kafka-5.key \
     -chain \
     -CAfile ca.pem \
-    -name kafka-6 \
-    -out kafka-6-creds/kafka-6.p12 \
-    -password pass:your-password6
+    -name kafka-5 \
+    -out kafka-5-creds/kafka-5.p12 \
+    -password pass:your-password5
 
 keytool -importkeystore \
-    -deststorepass your-password \
-    -destkeystore kafka-6-creds/kafka.kafka-6.keystore.pkcs12 \
-    -srckeystore kafka-6-creds/kafka-6.p12 \
-    -deststoretype PKCS12  \
-    -srcstoretype PKCS12 \
-    -noprompt \
-    -srcstorepass your-password6
+        -deststorepass your-password \
+        -destkeystore kafka-5-creds/kafka.kafka-5.keystore.pkcs12 \
+        -srckeystore kafka-5-creds/kafka-5.p12 \
+        -deststoretype PKCS12  \
+        -srcstoretype PKCS12 \
+        -noprompt \
+        -srcstorepass your-password5
 
 
 keytool -import \
     -file ca.crt \
     -alias ca \
-    -keystore kafka-6-creds/kafka.kafka-6.truststore.jks \
-    -storepass your-password6 \
-     -noprompt
+    -keystore kafka-5-creds/kafka.kafka-5.truststore.jks \
+    -storepass your-password5 \
+    -noprompt
 
 
+echo "your-password5" > kafka-5-creds/kafka-5_sslkey_creds
+echo "your-password5" > kafka-5-creds/kafka-5_keystore_creds
+echo "your-password5" > kafka-5-creds/kafka-5_truststore_creds
+
+cat /etc/consumer.cfg

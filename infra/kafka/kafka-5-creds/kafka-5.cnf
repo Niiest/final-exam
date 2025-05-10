@@ -11,7 +11,7 @@ countryName = RU
 organizationName = Yandex
 organizationalUnitName = Practice
 localityName = Moscow
-commonName=kafka-2
+commonName=kafka-5
 
 
 [ v3_ca ]
@@ -31,6 +31,6 @@ subjectAltName = @alt_names
 
 
 [ alt_names ]
-DNS.1=kafka-2
-DNS.2=kafka-2-external
+DNS.1=kafka-5
+DNS.2=kafka-5-external
 DNS.3=localhost
