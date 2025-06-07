@@ -1,0 +1,347 @@
+apt-get update && apt-get install -y openssl openjdk-11-jre-headless
+
+openssl req -new -nodes \
+   -x509 \
+   -days 365 \
+   -newkey rsa:2048 \
+   -keyout ca.key \
+   -out ca.crt \
+   -config ca.cnf
+
+cat ca.crt ca.key > ca.pem
+
+openssl req -new \
+    -newkey rsa:2048 \
+    -keyout kafka-1-creds/kafka-1.key \
+    -out kafka-1-creds/kafka-1.csr \
+    -config kafka-1-creds/kafka-1.cnf \
+    -nodes
+
+openssl req -new \
+    -newkey rsa:2048 \
+    -keyout kafka-2-creds/kafka-2.key \
+    -out kafka-2-creds/kafka-2.csr \
+    -config kafka-2-creds/kafka-2.cnf \
+    -nodes
+
+openssl req -new \
+    -newkey rsa:2048 \
+    -keyout kafka-3-creds/kafka-3.key \
+    -out kafka-3-creds/kafka-3.csr \
+    -config kafka-3-creds/kafka-3.cnf \
+    -nodes
+
+openssl req -new \
+    -newkey rsa:2048 \
+    -keyout kafka-4-creds/kafka-4.key \
+    -out kafka-4-creds/kafka-4.csr \
+    -config kafka-4-creds/kafka-4.cnf \
+    -nodes
+
+openssl req -new \
+    -newkey rsa:2048 \
+    -keyout kafka-5-creds/kafka-5.key \
+    -out kafka-5-creds/kafka-5.csr \
+    -config kafka-5-creds/kafka-5.cnf \
+    -nodes
+
+openssl req -new \
+    -newkey rsa:2048 \
+    -keyout kafka-6-creds/kafka-6.key \
+    -out kafka-6-creds/kafka-6.csr \
+    -config kafka-6-creds/kafka-6.cnf \
+    -nodes
+
+
+
+openssl x509 -req \
+    -days 3650 \
+    -in kafka-1-creds/kafka-1.csr \
+    -CA ca.crt \
+    -CAkey ca.key \
+    -CAcreateserial \
+    -out kafka-1-creds/kafka-1.crt \
+    -extfile kafka-1-creds/kafka-1.cnf \
+    -extensions v3_req
+
+openssl x509 -req \
+    -days 3650 \
+    -in kafka-2-creds/kafka-2.csr \
+    -CA ca.crt \
+    -CAkey ca.key \
+    -CAcreateserial \
+    -out kafka-2-creds/kafka-2.crt \
+    -extfile kafka-2-creds/kafka-2.cnf \
+    -extensions v3_req
+
+openssl x509 -req \
+    -days 3650 \
+    -in kafka-3-creds/kafka-3.csr \
+    -CA ca.crt \
+    -CAkey ca.key \
+    -CAcreateserial \
+    -out kafka-3-creds/kafka-3.crt \
+    -extfile kafka-3-creds/kafka-3.cnf \
+    -extensions v3_req
+
+openssl x509 -req \
+    -days 3650 \
+    -in kafka-4-creds/kafka-4.csr \
+    -CA ca.crt \
+    -CAkey ca.key \
+    -CAcreateserial \
+    -out kafka-4-creds/kafka-4.crt \
+    -extfile kafka-4-creds/kafka-4.cnf \
+    -extensions v3_req
+
+openssl x509 -req \
+    -days 3650 \
+    -in kafka-5-creds/kafka-5.csr \
+    -CA ca.crt \
+    -CAkey ca.key \
+    -CAcreateserial \
+    -out kafka-5-creds/kafka-5.crt \
+    -extfile kafka-5-creds/kafka-5.cnf \
+    -extensions v3_req
+
+openssl x509 -req \
+    -days 3650 \
+    -in kafka-6-creds/kafka-6.csr \
+    -CA ca.crt \
+    -CAkey ca.key \
+    -CAcreateserial \
+    -out kafka-6-creds/kafka-6.crt \
+    -extfile kafka-6-creds/kafka-6.cnf \
+    -extensions v3_req
+
+
+
+
+openssl pkcs12 -export \
+    -in kafka-1-creds/kafka-1.crt \
+    -inkey kafka-1-creds/kafka-1.key \
+    -chain \
+    -CAfile ca.pem \
+    -name kafka-1 \
+    -out kafka-1-creds/kafka-1.p12 \
+    -password pass:password
+
+openssl pkcs12 -export \
+    -in kafka-2-creds/kafka-2.crt \
+    -inkey kafka-2-creds/kafka-2.key \
+    -chain \
+    -CAfile ca.pem \
+    -name kafka-2 \
+    -out kafka-2-creds/kafka-2.p12 \
+    -password pass:password
+
+openssl pkcs12 -export \
+    -in kafka-3-creds/kafka-3.crt \
+    -inkey kafka-3-creds/kafka-3.key \
+    -chain \
+    -CAfile ca.pem \
+    -name kafka-3 \
+    -out kafka-3-creds/kafka-3.p12 \
+    -password pass:password
+
+openssl pkcs12 -export \
+    -in kafka-4-creds/kafka-4.crt \
+    -inkey kafka-4-creds/kafka-4.key \
+    -chain \
+    -CAfile ca.pem \
+    -name kafka-4 \
+    -out kafka-4-creds/kafka-4.p12 \
+    -password pass:password
+
+openssl pkcs12 -export \
+    -in kafka-5-creds/kafka-5.crt \
+    -inkey kafka-5-creds/kafka-5.key \
+    -chain \
+    -CAfile ca.pem \
+    -name kafka-5 \
+    -out kafka-5-creds/kafka-5.p12 \
+    -password pass:password
+
+openssl pkcs12 -export \
+    -in kafka-6-creds/kafka-6.crt \
+    -inkey kafka-6-creds/kafka-6.key \
+    -chain \
+    -CAfile ca.pem \
+    -name kafka-6 \
+    -out kafka-6-creds/kafka-6.p12 \
+    -password pass:password
+
+
+
+keytool -importkeystore \
+    -deststorepass password \
+    -destkeystore kafka-1-creds/kafka.kafka-1.keystore.pkcs12 \
+    -srckeystore kafka-1-creds/kafka-1.p12 \
+    -deststoretype PKCS12  \
+    -srcstoretype PKCS12 \
+    -noprompt \
+    -srcstorepass password
+
+keytool -importkeystore \
+    -deststorepass password \
+    -destkeystore kafka-2-creds/kafka.kafka-2.keystore.pkcs12 \
+    -srckeystore kafka-2-creds/kafka-2.p12 \
+    -deststoretype PKCS12  \
+    -srcstoretype PKCS12 \
+    -noprompt \
+    -srcstorepass password
+
+keytool -importkeystore \
+    -deststorepass password \
+    -destkeystore kafka-3-creds/kafka.kafka-3.keystore.pkcs12 \
+    -srckeystore kafka-3-creds/kafka-3.p12 \
+    -deststoretype PKCS12  \
+    -srcstoretype PKCS12 \
+    -noprompt \
+    -srcstorepass password
+
+keytool -importkeystore \
+    -deststorepass password \
+    -destkeystore kafka-4-creds/kafka.kafka-4.keystore.pkcs12 \
+    -srckeystore kafka-4-creds/kafka-4.p12 \
+    -deststoretype PKCS12  \
+    -srcstoretype PKCS12 \
+    -noprompt \
+    -srcstorepass password
+
+keytool -importkeystore \
+    -deststorepass password \
+    -destkeystore kafka-5-creds/kafka.kafka-5.keystore.pkcs12 \
+    -srckeystore kafka-5-creds/kafka-5.p12 \
+    -deststoretype PKCS12  \
+    -srcstoretype PKCS12 \
+    -noprompt \
+    -srcstorepass password
+
+keytool -importkeystore \
+    -deststorepass password \
+    -destkeystore kafka-6-creds/kafka.kafka-6.keystore.pkcs12 \
+    -srckeystore kafka-6-creds/kafka-6.p12 \
+    -deststoretype PKCS12  \
+    -srcstoretype PKCS12 \
+    -noprompt \
+    -srcstorepass password
+
+
+keytool -import \
+    -file ca.crt \
+    -alias ca \
+    -keystore kafka.truststore.jks \
+    -storepass password \
+     -noprompt
+
+cp kafka.truststore.jks kafka-1-creds/
+cp kafka.truststore.jks kafka-2-creds/
+cp kafka.truststore.jks kafka-3-creds/
+cp kafka.truststore.jks kafka-4-creds/
+cp kafka.truststore.jks kafka-5-creds/
+cp kafka.truststore.jks kafka-6-creds/
+
+
+
+
+echo "password" > kafka-1-creds/kafka-1_sslkey_creds
+echo "password" > kafka-1-creds/kafka-1_keystore_creds
+echo "password" > kafka-1-creds/kafka-1_truststore_creds
+
+
+echo "password" > kafka-2-creds/kafka-2_sslkey_creds
+echo "password" > kafka-2-creds/kafka-2_keystore_creds
+echo "password" > kafka-2-creds/kafka-2_truststore_creds
+
+
+echo "password" > kafka-3-creds/kafka-3_sslkey_creds
+echo "password" > kafka-3-creds/kafka-3_keystore_creds
+echo "password" > kafka-3-creds/kafka-3_truststore_creds
+
+echo "password" > kafka-4-creds/kafka-4_sslkey_creds
+echo "password" > kafka-4-creds/kafka-4_keystore_creds
+echo "password" > kafka-4-creds/kafka-4_truststore_creds
+
+
+echo "password" > kafka-5-creds/kafka-5_sslkey_creds
+echo "password" > kafka-5-creds/kafka-5_keystore_creds
+echo "password" > kafka-5-creds/kafka-5_truststore_creds
+
+
+echo "password" > kafka-6-creds/kafka-6_sslkey_creds
+echo "password" > kafka-6-creds/kafka-6_keystore_creds
+echo "password" > kafka-6-creds/kafka-6_truststore_creds
+
+
+
+
+keytool -importkeystore \
+    -srckeystore kafka-1-creds/kafka-1.p12 \
+    -srcstoretype PKCS12 \
+    -destkeystore kafka-1-creds/kafka-1.keystore.jks \
+    -deststoretype JKS \
+    -deststorepass password
+
+keytool -importkeystore \
+    -srckeystore kafka-2-creds/kafka-2.p12 \
+    -srcstoretype PKCS12 \
+    -destkeystore kafka-2-creds/kafka-2.keystore.jks \
+    -deststoretype JKS \
+    -deststorepass password
+
+keytool -importkeystore \
+    -srckeystore kafka-3-creds/kafka-3.p12 \
+    -srcstoretype PKCS12 \
+    -destkeystore kafka-3-creds/kafka-3.keystore.jks \
+    -deststoretype JKS \
+    -deststorepass password
+
+keytool -importkeystore \
+    -srckeystore kafka-4-creds/kafka-4.p12 \
+    -srcstoretype PKCS12 \
+    -destkeystore kafka-4-creds/kafka-4.keystore.jks \
+    -deststoretype JKS \
+    -deststorepass password
+
+keytool -importkeystore \
+    -srckeystore kafka-5-creds/kafka-5.p12 \
+    -srcstoretype PKCS12 \
+    -destkeystore kafka-5-creds/kafka-5.keystore.jks \
+    -deststoretype JKS \
+    -deststorepass password
+
+keytool -importkeystore \
+    -srckeystore kafka-6-creds/kafka-6.p12 \
+    -srcstoretype PKCS12 \
+    -destkeystore kafka-6-creds/kafka-6.keystore.jks \
+    -deststoretype JKS \
+    -deststorepass password
+
+
+
+
+
+keytool -import -trustcacerts -file ca.crt \
+    -keystore kafka-1-creds/kafka-1.truststore.jks \
+    -storepass password -noprompt -alias ca
+
+keytool -import -trustcacerts -file ca.crt \
+    -keystore kafka-2-creds/kafka-2.truststore.jks \
+    -storepass password -noprompt -alias ca
+
+keytool -import -trustcacerts -file ca.crt \
+    -keystore kafka-3-creds/kafka-3.truststore.jks \
+    -storepass password -noprompt -alias ca
+
+keytool -import -trustcacerts -file ca.crt \
+    -keystore kafka-4-creds/kafka-4.truststore.jks \
+    -storepass password -noprompt -alias ca
+
+keytool -import -trustcacerts -file ca.crt \
+    -keystore kafka-5-creds/kafka-5.truststore.jks \
+    -storepass password -noprompt -alias ca
+
+keytool -import -trustcacerts -file ca.crt \
+    -keystore kafka-6-creds/kafka-6.truststore.jks \
+    -storepass password -noprompt -alias ca
