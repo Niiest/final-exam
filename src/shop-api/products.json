@@ -1,0 +1,617 @@
+[
+  {
+    "product_id": "12345",
+    "name": "Умные часы XYZ",
+    "description": "Умные часы с функцией мониторинга здоровья, GPS и уведомлениями.",
+    "price": {
+      "amount": 4999.99,
+      "currency": "RUB"
+    },
+    "category": "Электроника",
+    "brand": "XYZ",
+    "stock": {
+      "available": 150,
+      "reserved": 20
+    },
+    "sku": "XYZ-12345",
+    "tags": [
+      "умные часы",
+      "гаджеты",
+      "технологии"
+    ],
+    "images": [
+      {
+        "url": "https://example.com/images/product1.jpg",
+        "alt": "Умные часы XYZ - вид спереди"
+      },
+      {
+        "url": "https://example.com/images/product1_side.jpg",
+        "alt": "Умные часы XYZ - вид сбоку"
+      }
+    ],
+    "specifications": {
+      "weight": "50g",
+      "dimensions": "42mm x 36mm x 10mm",
+      "battery_life": "24 hours",
+      "water_resistance": "IP68"
+    },
+    "created_at": "2023-10-01T12:00:00Z",
+    "updated_at": "2023-10-10T15:30:00Z",
+    "index": "products",
+    "store_id": "store_001"
+  },
+  {
+    "product_id": "12346",
+    "name": "Смартфон Alpha Pro",
+    "description": "Флагманский смартфон с тройной камерой и OLED-экраном.",
+    "price": {
+      "amount": 89999.99,
+      "currency": "RUB"
+    },
+    "category": "Электроника",
+    "brand": "Alpha",
+    "stock": {
+      "available": 80,
+      "reserved": 15
+    },
+    "sku": "ALP-67890",
+    "tags": [
+      "смартфон",
+      "камера",
+      "Android"
+    ],
+    "images": [
+      {
+        "url": "https://example.com/images/alpha_front.jpg",
+        "alt": "Alpha Pro - лицевая панель"
+      },
+      {
+        "url": "https://example.com/images/alpha_back.jpg",
+        "alt": "Alpha Pro - тройная камера"
+      }
+    ],
+    "specifications": {
+      "weight": "198g",
+      "dimensions": "160mm x 75mm x 8mm",
+      "battery_life": "18 часов",
+      "water_resistance": "IP67"
+    },
+    "created_at": "2023-09-15T10:00:00Z",
+    "updated_at": "2023-10-05T14:20:00Z",
+    "index": "products",
+    "store_id": "store_002"
+  },
+  {
+    "product_id": "12347",
+    "name": "Беспроводные наушники BeatAir",
+    "description": "Наушники с активным шумоподавлением и 30-часовой работой.",
+    "price": {
+      "amount": 12999.5,
+      "currency": "RUB"
+    },
+    "category": "Аудио",
+    "brand": "SoundMax",
+    "stock": {
+      "available": 200,
+      "reserved": 45
+    },
+    "sku": "SND-55500",
+    "tags": [
+      "наушники",
+      "Bluetooth",
+      "музыка"
+    ],
+    "images": [
+      {
+        "url": "https://example.com/images/beatair_black.jpg",
+        "alt": "BeatAir в черном цвете"
+      },
+      {
+        "url": "https://example.com/images/beatair_case.jpg",
+        "alt": "Чехол для зарядки"
+      }
+    ],
+    "specifications": {
+      "weight": "58g",
+      "dimensions": "60mm x 45mm x 25mm",
+      "battery_life": "30 часов",
+      "water_resistance": "IPX5"
+    },
+    "created_at": "2023-10-12T08:30:00Z",
+    "updated_at": "2023-11-01T11:15:00Z",
+    "index": "products",
+    "store_id": "store_001"
+  },
+  {
+    "product_id": "12348",
+    "name": "Экшн-камера ActionPro 4K",
+    "description": "Камера для экстремальных съемок с поддержкой 4K/60fps.",
+    "price": {
+      "amount": 34950,
+      "currency": "RUB"
+    },
+    "category": "Фототехника",
+    "brand": "AdventureGear",
+    "stock": {
+      "available": 65,
+      "reserved": 10
+    },
+    "sku": "ADV-77733",
+    "tags": [
+      "камера",
+      "экшн",
+      "4K"
+    ],
+    "images": [
+      {
+        "url": "https://example.com/images/actionpro_main.jpg",
+        "alt": "ActionPro на велосипеде"
+      },
+      {
+        "url": "https://example.com/images/actionpro_kit.jpg",
+        "alt": "Комплект аксессуаров"
+      }
+    ],
+    "specifications": {
+      "weight": "89g",
+      "dimensions": "60mm x 40mm x 30mm",
+      "battery_life": "2 часа",
+      "water_resistance": "10м без бокса"
+    },
+    "created_at": "2023-08-20T13:45:00Z",
+    "updated_at": "2023-09-10T09:30:00Z",
+    "index": "products",
+    "store_id": "store_003"
+  },
+  {
+    "product_id": "12349",
+    "name": "Умный термостат ClimateControl",
+    "description": "Управляйте отоплением через приложение с помощью ИИ.",
+    "price": {
+      "amount": 12499,
+      "currency": "RUB"
+    },
+    "category": "Умный дом",
+    "brand": "HomeTech",
+    "stock": {
+      "available": 120,
+      "reserved": 25
+    },
+    "sku": "HMT-88812",
+    "tags": [
+      "термостат",
+      "умный дом",
+      "энергосбережение"
+    ],
+    "images": [
+      {
+        "url": "https://example.com/images/thermostat_wall.jpg",
+        "alt": "Установленный на стене"
+      },
+      {
+        "url": "https://example.com/images/thermostat_app.jpg",
+        "alt": "Интерфейс приложения"
+      }
+    ],
+    "specifications": {
+      "weight": "320g",
+      "dimensions": "110mm x 110mm x 35mm",
+      "battery_life": "2 года (CR2032)",
+      "compatibility": "Wi-Fi 5, Zigbee"
+    },
+    "created_at": "2023-07-05T11:20:00Z",
+    "updated_at": "2023-10-25T16:40:00Z",
+    "index": "products",
+    "store_id": "store_001"
+  },
+  {
+    "product_id": "12350",
+    "name": "Электрический самокат TurboWheel",
+    "description": "Самокат с пробегом 40 км и скоростью до 25 км/ч.",
+    "price": {
+      "amount": 45900,
+      "currency": "RUB"
+    },
+    "category": "Транспорт",
+    "brand": "RideTech",
+    "stock": {
+      "available": 30,
+      "reserved": 8
+    },
+    "sku": "RT-2020X",
+    "tags": [
+      "самокат",
+      "электротранспорт",
+      "город"
+    ],
+    "images": [
+      {
+        "url": "https://example.com/images/scooter_red.jpg",
+        "alt": "TurboWheel в движении"
+      },
+      {
+        "url": "https://example.com/images/scooter_fold.jpg",
+        "alt": "Сложенный вид"
+      }
+    ],
+    "specifications": {
+      "weight": "15.5kg",
+      "dimensions": "1080mm x 430mm x 1160mm",
+      "battery_life": "40 км",
+      "max_speed": "25 км/ч"
+    },
+    "created_at": "2023-06-18T14:10:00Z",
+    "updated_at": "2023-09-22T12:05:00Z",
+    "index": "products",
+    "store_id": "store_004"
+  },
+  {
+    "product_id": "12351",
+    "name": "Игровая консоль NextBox Series X",
+    "description": "Мощная консоль 4K/120fps с SSD-накопителем.",
+    "price": {
+      "amount": 59999,
+      "currency": "RUB"
+    },
+    "category": "Игры",
+    "brand": "NextBox",
+    "stock": {
+      "available": 45,
+      "reserved": 18
+    },
+    "sku": "NXB-XSERIES",
+    "tags": [
+      "консоль",
+      "игры",
+      "4K"
+    ],
+    "images": [
+      {
+        "url": "https://example.com/images/console_main.jpg",
+        "alt": "Консоль с контроллером"
+      },
+      {
+        "url": "https://example.com/images/console_ports.jpg",
+        "alt": "Задние порты"
+      }
+    ],
+    "specifications": {
+      "weight": "4.45kg",
+      "dimensions": "301mm x 151mm x 151mm",
+      "storage": "1TB SSD",
+      "resolution": "8K HDR"
+    },
+    "created_at": "2023-11-01T09:00:00Z",
+    "updated_at": "2023-11-05T17:30:00Z",
+    "index": "products",
+    "store_id": "store_002"
+  },
+  {
+    "product_id": "12352",
+    "name": "Электронная книга ReaderPro",
+    "description": "E-ink дисплей с подсветкой и водозащитой.",
+    "price": {
+      "amount": 8990,
+      "currency": "RUB"
+    },
+    "category": "Гаджеты",
+    "brand": "BookTech",
+    "stock": {
+      "available": 95,
+      "reserved": 12
+    },
+    "sku": "BTP-READER",
+    "tags": [
+      "книга",
+      "электронная бумага",
+      "чтение"
+    ],
+    "images": [
+      {
+        "url": "https://example.com/images/ereader_white.jpg",
+        "alt": "Чтение при свете"
+      },
+      {
+        "url": "https://example.com/images/ereader_size.jpg",
+        "alt": "Сравнение размеров"
+      }
+    ],
+    "specifications": {
+      "weight": "186g",
+      "dimensions": "160mm x 113mm x 8mm",
+      "battery_life": "4 недели",
+      "screen_type": "E Ink Carta"
+    },
+    "created_at": "2023-05-22T16:20:00Z",
+    "updated_at": "2023-10-15T10:45:00Z",
+    "index": "products",
+    "store_id": "store_001"
+  },
+  {
+    "product_id": "12353",
+    "name": "Робот-пылесос CleanBot 5000",
+    "description": "Автономная уборка с навигацией LiDAR и влажной протиркой.",
+    "price": {
+      "amount": 32999.99,
+      "currency": "RUB"
+    },
+    "category": "Техника для дома",
+    "brand": "HomeClean",
+    "stock": {
+      "available": 60,
+      "reserved": 22
+    },
+    "sku": "HCL-5000",
+    "tags": [
+      "пылесос",
+      "робот",
+      "уборка"
+    ],
+    "images": [
+      {
+        "url": "https://example.com/images/vacuum_clean.jpg",
+        "alt": "CleanBot в работе"
+      },
+      {
+        "url": "https://example.com/images/vacuum_dock.jpg",
+        "alt": "На док-станции"
+      }
+    ],
+    "specifications": {
+      "weight": "3.8kg",
+      "dimensions": "350mm диаметр x 95mm",
+      "battery_life": "150 мин",
+      "dustbin": "0.6L"
+    },
+    "created_at": "2023-04-10T12:30:00Z",
+    "updated_at": "2023-08-28T14:00:00Z",
+    "index": "products",
+    "store_id": "store_003"
+  },
+  {
+    "product_id": "12354",
+    "name": "Фитнес-браслет HealthBand 2",
+    "description": "Трекер сна, пульса и 20 спортивных режимов.",
+    "price": {
+      "amount": 3990,
+      "currency": "RUB"
+    },
+    "category": "Гаджеты",
+    "brand": "FitLife",
+    "stock": {
+      "available": 300,
+      "reserved": 50
+    },
+    "sku": "FTB-2000",
+    "tags": [
+      "фитнес",
+      "браслет",
+      "здоровье"
+    ],
+    "images": [
+      {
+        "url": "https://example.com/images/band_black.jpg",
+        "alt": "Черный браслет"
+      },
+      {
+        "url": "https://example.com/images/band_stats.jpg",
+        "alt": "Данные активности"
+      }
+    ],
+    "specifications": {
+      "weight": "24g",
+      "dimensions": "240mm x 18mm x 12mm",
+      "battery_life": "10 дней",
+      "water_resistance": "5 ATM"
+    },
+    "created_at": "2023-09-30T07:45:00Z",
+    "updated_at": "2023-10-18T11:10:00Z",
+    "index": "products",
+    "store_id": "store_001"
+  },
+  {
+    "product_id": "12355",
+    "name": "Дрон SkyFly FPV",
+    "description": "4K камера с FPV-очками и временем полета 30 минут.",
+    "price": {
+      "amount": 78900,
+      "currency": "RUB"
+    },
+    "category": "Дроны",
+    "brand": "AeroVision",
+    "stock": {
+      "available": 25,
+      "reserved": 5
+    },
+    "sku": "AV-SKYFLY",
+    "tags": [
+      "дрон",
+      "FPV",
+      "квадрокоптер"
+    ],
+    "images": [
+      {
+        "url": "https://example.com/images/drone_flying.jpg",
+        "alt": "Дрон в полете"
+      },
+      {
+        "url": "https://example.com/images/drone_controller.jpg",
+        "alt": "Пульт управления"
+      }
+    ],
+    "specifications": {
+      "weight": "810g",
+      "dimensions": "350mm x 350mm x 120mm",
+      "max_speed": "72 км/ч",
+      "range": "8 км"
+    },
+    "created_at": "2023-03-15T10:15:00Z",
+    "updated_at": "2023-07-20T13:50:00Z",
+    "index": "products",
+    "store_id": "store_004"
+  },
+  {
+    "product_id": "12356",
+    "name": "Портативная колонка SoundBoom",
+    "description": "360° звук с защитой IP67 и режимом вечеринки.",
+    "price": {
+      "amount": 14990,
+      "currency": "RUB"
+    },
+    "category": "Аудио",
+    "brand": "AudioForce",
+    "stock": {
+      "available": 180,
+      "reserved": 30
+    },
+    "sku": "AF-SOUNDBOOM",
+    "tags": [
+      "колонка",
+      "Bluetooth",
+      "портативная"
+    ],
+    "images": [
+      {
+        "url": "https://example.com/images/speaker_blue.jpg",
+        "alt": "Колонка у бассейна"
+      },
+      {
+        "url": "https://example.com/images/speaker_lights.jpg",
+        "alt": "Световые эффекты"
+      }
+    ],
+    "specifications": {
+      "weight": "1.2kg",
+      "dimensions": "200mm x 200mm x 150mm",
+      "battery_life": "15 часов",
+      "drivers": "2x 20W"
+    },
+    "created_at": "2023-02-28T11:30:00Z",
+    "updated_at": "2023-06-12T15:20:00Z",
+    "index": "products",
+    "store_id": "store_002"
+  },
+  {
+    "product_id": "12357",
+    "name": "Умный замок SafeHome",
+    "description": "Открытие по отпечатку, смартфону или коду.",
+    "price": {
+      "amount": 21900,
+      "currency": "RUB"
+    },
+    "category": "Умный дом",
+    "brand": "SecureTech",
+    "stock": {
+      "available": 70,
+      "reserved": 18
+    },
+    "sku": "ST-LOCK2023",
+    "tags": [
+      "замок",
+      "безопасность",
+      "умный дом"
+    ],
+    "images": [
+      {
+        "url": "https://example.com/images/lock_door.jpg",
+        "alt": "Установленный на двери"
+      },
+      {
+        "url": "https://example.com/images/lock_app.jpg",
+        "alt": "Управление доступом"
+      }
+    ],
+    "specifications": {
+      "weight": "480g",
+      "dimensions": "110mm x 75mm x 25mm",
+      "battery": "4x AA (6 месяцев)",
+      "autonomy": "5000 циклов"
+    },
+    "created_at": "2023-01-10T08:00:00Z",
+    "updated_at": "2023-05-05T12:25:00Z",
+    "index": "products",
+    "store_id": "store_003"
+  },
+  {
+    "product_id": "12358",
+    "name": "Монитор UltraView 32\"",
+    "description": "4K IPS-панель с HDR10 и частотой 144Hz.",
+    "price": {
+      "amount": 43999,
+      "currency": "RUB"
+    },
+    "category": "Компьютеры",
+    "brand": "DispTech",
+    "stock": {
+      "available": 40,
+      "reserved": 9
+    },
+    "sku": "DT-32UHD",
+    "tags": [
+      "монитор",
+      "игровой",
+      "4K"
+    ],
+    "images": [
+      {
+        "url": "https://example.com/images/monitor_desk.jpg",
+        "alt": "На рабочем столе"
+      },
+      {
+        "url": "https://example.com/images/monitor_ports.jpg",
+        "alt": "Разъемы HDMI/DisplayPort"
+      }
+    ],
+    "specifications": {
+      "weight": "7.2kg",
+      "dimensions": "710mm x 480mm x 200mm",
+      "response_time": "1ms",
+      "brightness": "400 кд/м²"
+    },
+    "created_at": "2023-08-05T14:40:00Z",
+    "updated_at": "2023-10-30T10:15:00Z",
+    "index": "products",
+    "store_id": "store_001"
+  },
+  {
+    "product_id": "12359",
+    "name": "Кофеварка Barista Pro",
+    "description": "Автоматическая капучинатор и помол зерен.",
+    "price": {
+      "amount": 57990,
+      "currency": "RUB"
+    },
+    "category": "Кухня",
+    "brand": "CoffeeMaster",
+    "stock": {
+      "available": 35,
+      "reserved": 7
+    },
+    "sku": "CM-BARISTA",
+    "tags": [
+      "кофе",
+      "автоматическая",
+      "эспрессо"
+    ],
+    "images": [
+      {
+        "url": "https://example.com/images/coffee_machine.jpg",
+        "alt": "Приготовление кофе"
+      },
+      {
+        "url": "https://example.com/images/coffee_cup.jpg",
+        "alt": "Готовый капучино"
+      }
+    ],
+    "specifications": {
+      "weight": "18.5kg",
+      "dimensions": "340mm x 470mm x 420mm",
+      "power": "1450W",
+      "water_tank": "1.8L"
+    },
+    "created_at": "2023-07-22T09:15:00Z",
+    "updated_at": "2023-11-02T16:45:00Z",
+    "index": "products",
+    "store_id": "store_002"
+  }
+]
