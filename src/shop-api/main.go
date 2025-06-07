@@ -1,18 +1,26 @@
 package main
 
 import (
+	"crypto/tls"
+	"crypto/x509"
 	"encoding/json"
 	"example/shop/models"
+	"fmt"
 	"log"
 	"net/http"
 	"os"
+	"os/signal"
 	"sort"
 	"strconv"
 	"strings"
 	"sync"
+	"syscall"
 	"time"
 
+	"github.com/IBM/sarama"
 	"github.com/go-chi/chi/v5"
+	"github.com/joho/godotenv"
+	"github.com/lovoo/goka"
 )
 
 var (
@@ -20,12 +28,26 @@ var (
 	logMutex     sync.Mutex // Для безопасной записи в лог
 	logFile      = "requests.json"
 	productsFile = "products.json"
+	fileHandle   *os.File
+	brokers      = []string{"localhost:9093", "localhost:9095", "localhost:9098"}
+	logStream    = "requests"
+	logEmitter   *goka.Emitter
 )
 
 func main() {
+	err := godotenv.Load()
+	if err != nil {
+		fmt.Println("Ошибка загрузки файла .env")
+		return
+	}
+
 	if err := loadProducts(productsFile); err != nil {
 		log.Fatalf("Ошибка загрузки данных: %v", err)
 	}
+
+	openLogFile()
+	setupGracefulShutdown()
+	runEmitter()
 
 	r := chi.NewRouter()
 
@@ -48,7 +70,6 @@ func logRequest(next http.Handler) http.Handler {
 			Query:      r.URL.RawQuery,
 			RemoteAddr: r.RemoteAddr,
 			Timestamp:  time.Now().UTC(),
-			UserAgent:  r.UserAgent(),
 		}
 
 		go saveRequestLog(reqLog)
@@ -58,26 +79,31 @@ func logRequest(next http.Handler) http.Handler {
 }
 
 func saveRequestLog(logEntry models.RequestLog) {
-	logMutex.Lock()
-	defer logMutex.Unlock()
+	go saveRequestLogToFile(&logEntry)
+	saveRequestLogToKafka(&logEntry)
+}
 
-	// Преобразуем в JSON
-	data, err := json.Marshal(logEntry)
+func saveRequestLogToKafka(logEntry *models.RequestLog) {
+	key := logEntry.RemoteAddr + logEntry.Path + logEntry.Timestamp.UTC().Format(time.RFC3339)
+	_, err := logEmitter.Emit(key, logEntry)
 	if err != nil {
-		log.Printf("Ошибка маршалинга лога: %v", err)
+		log.Fatal(err)
+	}
+}
+
+func saveRequestLogToFile(logEntry *models.RequestLog) {
+	data, err := json.Marshal(*logEntry)
+	if err != nil {
+		log.Printf("Ошибка сериализации лога запроса: %v", err)
 		return
 	}
 
 	data = append(data, '\n')
 
-	f, err := os.OpenFile(logFile, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
-	if err != nil {
-		log.Printf("Ошибка открытия файла лога: %v", err)
-		return
-	}
-	defer f.Close()
+	logMutex.Lock()
+	defer logMutex.Unlock()
 
-	if _, err := f.Write(data); err != nil {
+	if _, err := fileHandle.Write(data); err != nil {
 		log.Printf("Ошибка записи в лог: %v", err)
 	}
 }
@@ -154,4 +180,67 @@ func respondWithJSON(w http.ResponseWriter, code int, payload interface{}) {
 
 func respondWithError(w http.ResponseWriter, code int, message string) {
 	respondWithJSON(w, code, map[string]string{"error": message})
+}
+
+func runEmitter() {
+	config := sarama.NewConfig()
+	config.Net.SASL.Enable = true
+	config.Net.SASL.User = os.Getenv("PRODUCER_USERNAME")
+	config.Net.SASL.Password = os.Getenv("PRODUCER_PASSWORD")
+	config.Net.SASL.Mechanism = sarama.SASLTypePlaintext
+	config.Net.TLS.Enable = true
+
+	caCertPool := x509.NewCertPool()
+	if caCertPath := os.Getenv("KAFKA_CA_CERT_PATH"); caCertPath != "" {
+		caCert, err := os.ReadFile(caCertPath)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		caCertPool.AppendCertsFromPEM([]byte(caCert))
+	}
+
+	config.Net.TLS.Config = &tls.Config{
+		RootCAs:            caCertPool,
+		InsecureSkipVerify: true,
+	}
+
+	config.Producer.Return.Successes = true
+	config.Producer.RequiredAcks = sarama.WaitForAll
+
+	e, err := goka.NewEmitter(
+		brokers,
+		goka.Stream(logStream),
+		new(models.RequestLogCodec),
+		goka.WithEmitterProducerBuilder(goka.ProducerBuilderWithConfig(config)),
+	)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	logEmitter = e
+}
+
+func openLogFile() {
+	f, err := os.OpenFile(logFile, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	if err != nil {
+		log.Fatalf("Ошибка открытия файла лога: %v", err)
+		return
+	}
+
+	fileHandle = f
+}
+
+func setupGracefulShutdown() {
+	signalChan := make(chan os.Signal, 1)
+	signal.Notify(signalChan, os.Interrupt, syscall.SIGINT)
+	go func() {
+		sig := <-signalChan
+		fmt.Println("Received signal:", sig)
+		fileHandle.Close()
+		fmt.Println("Log file handle closed")
+		logEmitter.Finish()
+		fmt.Println("Log emitter closed")
+		os.Exit(0)
+	}()
 }

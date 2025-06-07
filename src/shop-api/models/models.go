@@ -1,6 +1,10 @@
 package models
 
-import "time"
+import (
+	"encoding/json"
+	"fmt"
+	"time"
+)
 
 // Структура для лога запросов
 type RequestLog struct {
@@ -9,7 +13,6 @@ type RequestLog struct {
 	Query      string    `json:"query,omitempty"`
 	RemoteAddr string    `json:"remote_addr"`
 	Timestamp  time.Time `json:"timestamp"`
-	UserAgent  string    `json:"user_agent"`
 }
 
 type Product struct {
@@ -43,4 +46,25 @@ type Stock struct {
 type Image struct {
 	URL string `json:"url"`
 	Alt string `json:"alt"`
+}
+
+type RequestLogCodec struct{}
+
+func (uc *RequestLogCodec) Encode(value any) ([]byte, error) {
+	if _, isRequestLog := value.(*RequestLog); !isRequestLog {
+		return nil, fmt.Errorf("expected type is *RequestLog, received %T", value)
+	}
+	return json.Marshal(value)
+}
+
+func (uc *RequestLogCodec) Decode(data []byte) (any, error) {
+	var (
+		c   RequestLog
+		err error
+	)
+	err = json.Unmarshal(data, &c)
+	if err != nil {
+		return nil, fmt.Errorf("deserialization error: %v", err)
+	}
+	return &c, nil
 }
