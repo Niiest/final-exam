@@ -15,6 +15,9 @@ kafka-topics --bootstrap-server localhost:9092 --topic requests --create --parti
 kafka-acls --authorizer-properties zookeeper.connect=zookeeper-1:2181 --add --allow-principal User:producer --operation Describe --operation Write --topic requests
 kafka-acls --authorizer-properties zookeeper.connect=zookeeper-1:2181 --add --allow-principal User:consumer --operation Describe --operation Read --topic requests
 
+kafka-acls --authorizer-properties zookeeper.connect=zookeeper-1:2181 --add --allow-principal User:mm2 --operation Read --group mirror-maker --topic '*'
+
+
 
 // SSL certificates
 apt-get update && apt-get install -y openssl openjdk-11-jre-headless
