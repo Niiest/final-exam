@@ -1,4 +1,5 @@
 kafka-topics --bootstrap-server kafka-1:9091 --list
+kafka-topics --bootstrap-server kafka-4:9102 --list
 
 kafka-console-consumer --bootstrap-server kafka-1:9091 --topic requests --from-beginning
 
@@ -8,7 +9,7 @@ kafka-acls --authorizer-properties zookeeper.connect=zookeeper-1:2181 --add --al
 
 
 // Topics
-kafka-topics --bootstrap-server localhost:9092 --topic requests --create --partitions 3 --replication-factor 2
+kafka-topics --bootstrap-server kafka-1:9091 --topic requests --create --partitions 3 --replication-factor 2
 
 
 // ACLs
@@ -16,7 +17,13 @@ kafka-acls --authorizer-properties zookeeper.connect=zookeeper-1:2181 --add --al
 kafka-acls --authorizer-properties zookeeper.connect=zookeeper-1:2181 --add --allow-principal User:consumer --operation Describe --operation Read --topic requests
 
 kafka-acls --authorizer-properties zookeeper.connect=zookeeper-1:2181 --add --allow-principal User:mm2 --operation Read --group mirror-maker --topic '*'
-
+kafka-acls--bootstrap-server kafka-1:9091 \
+  --add \
+  --allow-principal User:ANONYMOUS \
+  --operation ALL \
+  --topic '*' \
+  --group '*' \
+  --cluster
 
 
 // SSL certificates
