@@ -17,7 +17,7 @@ kafka-acls --authorizer-properties zookeeper.connect=zookeeper-1:2181 --add --al
 kafka-acls --authorizer-properties zookeeper.connect=zookeeper-1:2181 --add --allow-principal User:consumer --operation Describe --operation Read --topic requests
 
 kafka-acls --authorizer-properties zookeeper.connect=zookeeper-1:2181 --add --allow-principal User:mm2 --operation Read --group mirror-maker --topic '*'
-kafka-acls--bootstrap-server kafka-1:9091 --add --allow-principal User:ANONYMOUS --operation ALL --topic '*' --group '*' --cluster
+kafka-acls --bootstrap-server kafka-1:9091 --add --allow-principal User:ANONYMOUS --operation ALL --topic '*' --group '*' --cluster
 
 
 // SSL certificates
